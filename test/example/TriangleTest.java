@@ -2,7 +2,6 @@ package example;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class TriangleTest { 
@@ -10,7 +9,11 @@ public class TriangleTest {
     @Test 
     public void equilateralHasThreeEqualSides() throws Exception { 
         Triangle triangle1 = new Triangle(2, 2, 2); 
-        assertEquals(TriangleKind.EQUILATERAL, triangle1.getKind()); 
+        Triangle triangle2 = new Triangle(Double.MIN_VALUE, Double.MIN_VALUE, Double.MIN_VALUE);
+        Triangle triangle3 = new Triangle(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
+        assertEquals(TriangleKind.EQUILATERAL, triangle1.getKind());
+        assertEquals(TriangleKind.EQUILATERAL, triangle2.getKind()); 
+        assertEquals(TriangleKind.EQUILATERAL, triangle3.getKind()); 
     } 
     
     @Test
@@ -43,14 +46,15 @@ public class TriangleTest {
     }
     
     @Test
-    public void throwsWhenHasImpossibleSides() {
+    public void throwsWhenHavingImpossibleSides() {
     	assertThrows(TriangleException.class, () -> new Triangle(0, 1, 2));
     	assertThrows(TriangleException.class, () -> new Triangle(1, 0, 2));
     	assertThrows(TriangleException.class, () -> new Triangle(1, 2, 0));
+    	assertThrows(TriangleException.class, () -> new Triangle(-1, 2, 3));
     }
     
     @Test
-    public void getNumberOfUniqueSidesTest() throws TriangleException {
+    public void testGetNumberOfUniqueSides() throws TriangleException {
     	Triangle triangle1 = new Triangle(4, 2, 3);
     	Triangle triangle2 = new Triangle(2, 2, 3);
     	Triangle triangle3 = new Triangle(3, 3, 3);
